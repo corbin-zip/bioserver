@@ -2,7 +2,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
-CREATE USER 'bioserver'@'localhost' IDENTIFIED BY 'xxxxxxxxxxxxxxxx';
+CREATE USER IF NOT EXISTS 'bioserver'@'localhost' IDENTIFIED BY 'xxxxxxxxxxxxxxxx';
 CREATE DATABASE IF NOT EXISTS `bioserver` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 GRANT ALL PRIVILEGES ON `bioserver`.* TO 'bioserver'@'localhost'; 
 
