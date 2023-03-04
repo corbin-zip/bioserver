@@ -20,8 +20,8 @@
 
 package bioserver;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.io.UnsupportedEncodingException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
