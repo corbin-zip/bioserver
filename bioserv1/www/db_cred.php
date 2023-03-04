@@ -4,9 +4,7 @@
     $user = 'bioserver';
     $pass = 'xxxxxxxxxxxxxxxx';
     
-    $conn = mysql_connect($serv, $user, $pass)
+    $conn = mysqli_connect($serv, $user, $pass, $datb)
         or die ("connection error");
 
-    mysql_select_db($datb, $conn)
-        or die("database failure");
 ?>
