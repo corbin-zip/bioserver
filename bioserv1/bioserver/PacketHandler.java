@@ -460,7 +460,8 @@ class PacketHandler implements Runnable {
     // 0x258 =  600 = 10 min in seconds
     // TODO: is this latency or timeout ?
     void send61A0(ServerThread server, SocketChannel socket, Packet ps) {
-        byte[] latency = {0x00,0x00,0x07,0x08,0x00,0x00,0x02,0x58};
+        // set default timeout to 590124 seconds (~10K minutes)
+        byte[] latency = {0x00,0x09,0x01,0x2C,0x00,0x00,0x02,0x58};
         
         Packet p = new Packet(Commands.UNKN61A0, Commands.TELL, Commands.SERVER, ps.getPacketID(), latency);
         this.addOutPacket(server, socket, p);
