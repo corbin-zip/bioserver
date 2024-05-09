@@ -3,13 +3,9 @@ services:
     build: 
       context: .
       dockerfile: docker/bio1-apache.Dockerfile
-      args:
-        - HOST_IP=10.0.0.200
     ports:
       - "80:80"
       - "443:443"
-      # - "53:53/tcp"
-      # - "53:53/udp"
   # bio1server:
   #   build: 
   #     context: .

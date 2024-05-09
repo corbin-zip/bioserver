@@ -46,7 +46,8 @@ RUN wget https://dlcdn.apache.org/httpd/httpd-2.4.59.tar.gz \
         --with-ssl=/opt/openssl-1.0.2 \
         --enable-ssl \
     && make \
-    && make install 
+    && make install \
+    && apt-get install -y php libapache2-mod-php7.4 
 
 #Installing and setting up DNAS
 WORKDIR /tmp
@@ -60,19 +61,10 @@ RUN git clone https://github.com/corbin-ch/DNASrep.git \
     && mv DNASrep/www/dnas /var/www \
     && chown -R www-data:www-data /var/www/dnas
 
-#Setting up DNS
-#TODO: remove php to another container
-# RUN apt-get install -y dnsmasq dnsutils php7.4-fpm
-RUN apt-get install -y php7.4-fpm
-
-# COPY ./docker/vars/apache/httpd.conf /opt/apache/conf/httpd.conf
-# COPY ./docker/vars/apache/obcomsrv /etc/dnsmasq.d/obcomsrv
-# COPY ./docker/vars/apache/dnsmasq.conf /etc/dnsmasq.conf
-# COPY ./docker/vars/apache/start.sh /var/www/
-
-
 #Start this shit
 WORKDIR /var/www
+COPY ./docker/vars/apache/httpd.conf /opt/apache/conf/httpd.conf
+COPY ./docker/vars/apache/start.sh /var/www/
 
 CMD [ "sh", "-c", "/var/www/start.sh" ]
 
