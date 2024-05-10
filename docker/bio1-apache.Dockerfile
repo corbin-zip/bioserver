@@ -49,28 +49,18 @@ RUN wget https://dlcdn.apache.org/httpd/httpd-2.4.59.tar.gz \
     && make install \
     && apt-get install -y php libapache2-mod-php7.4 
 
-#Installing and setting up DNAS
-WORKDIR /tmp
+COPY --chown=0:0 ./docker/vars/apache/etc /etc/dnas 
+COPY --chown=www-data:www-data ./docker/vars/php/www /var/www
 
-RUN apt-get install -y git
-
-RUN git clone https://github.com/corbin-ch/DNASrep.git \
-    && mv DNASrep/etc/dnas /etc/dnas \
-    && chown -R 0:0 /etc/dnas \
-    && mkdir -p /var/www/dnas \
-    && mv DNASrep/www/dnas /var/www \
-    && chown -R www-data:www-data /var/www/dnas
-
-RUN apt-get install -y php7.4-mysql php7.4-fpm iputils-ping
+RUN apt-get install -y iputils-ping
 
 #Start this shit
 WORKDIR /var/www
+RUN touch /var/www/index.html
 COPY ./docker/vars/apache/httpd.conf /opt/apache/conf/httpd.conf
 COPY ./docker/vars/apache/start.sh /var/www/
+COPY --chown=www-data:www-data ./docker/vars/php/www /var/www
 COPY --chown=www-data:www-data ./bioserv1/www /var/www/bhof1
 
-RUN mkdir -p /var/www/dnas/00000002 && ln -s /var/www/bhof1 /var/www/dnas/00000002
 
 CMD [ "sh", "-c", "/var/www/start.sh" ]
-
-EXPOSE 2003

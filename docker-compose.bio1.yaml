@@ -23,10 +23,18 @@ services:
     networks:
       - bio1
 
+  bio1fpm:
+    build: 
+      context: .
+      dockerfile: docker/bio1-php.Dockerfile
+    depends_on:
+      - bio1mysql
+      - bio1server
+    networks:
+      - bio1
+
   bio1mysql:
     image: mysql:5.7
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "bioserver"
