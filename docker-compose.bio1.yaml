@@ -44,11 +44,9 @@ services:
       - bio1
     volumes:
       - ./bioserv1/database/bioserver.sql:/docker-entrypoint-initdb.d/bioserver.sql:rw
+      - ./dbdata:/var/lib/mysql
 
 networks:
   bio1:
     driver: bridge
     name: bio1-network
-
-volumes:
-  db_data:

@@ -57,6 +57,7 @@ RUN apt-get install -y iputils-ping
 #Start this shit
 WORKDIR /var/www
 RUN touch /var/www/index.html
+#better pass to conf.d
 COPY ./docker/vars/apache/httpd.conf /opt/apache/conf/httpd.conf
 COPY ./docker/vars/apache/start.sh /var/www/
 COPY --chown=www-data:www-data ./docker/vars/php/www /var/www
