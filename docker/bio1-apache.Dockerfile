@@ -61,7 +61,7 @@ RUN touch /var/www/index.html
 COPY ./docker/vars/apache/httpd.conf /opt/apache/conf/httpd.conf
 COPY ./docker/vars/apache/start.sh /var/www/
 COPY --chown=www-data:www-data ./docker/vars/php/www /var/www
-COPY --chown=www-data:www-data ./bioserv1/www /var/www/bhof1
+COPY --chown=www-data:www-data ./bioserv1/www /var/www/dnas/00000002
 
 
 CMD [ "sh", "-c", "/var/www/start.sh" ]
