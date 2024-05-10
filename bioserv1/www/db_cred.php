@@ -1,5 +1,5 @@
 <?php
-    $serv = 'localhost';
+    $serv = 'bio1mysql';
     $datb = 'bioserver';
     $user = 'bioserver';
     $pass = 'xxxxxxxxxxxxxxxx';

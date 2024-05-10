@@ -34,8 +34,8 @@ import java.util.logging.Logger;
  */
 public class Database {
     // TODO: read from ini-file, don't save credentials in class!
-    private final String url = "jdbc:mysql://localhost:3306/bioserver"
-                         +"?useUnicode=true&characterEncoding=UTF-8";
+    private final String url = "jdbc:mysql://bio1mysql:3306/bioserver"
+                         +"?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false";
     private String user = "bioserver";
     private String password = "xxxxxxxxxxxxxxxx";
     

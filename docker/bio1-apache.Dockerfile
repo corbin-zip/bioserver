@@ -61,10 +61,15 @@ RUN git clone https://github.com/corbin-ch/DNASrep.git \
     && mv DNASrep/www/dnas /var/www \
     && chown -R www-data:www-data /var/www/dnas
 
+RUN apt-get install -y php7.4-mysql php7.4-fpm iputils-ping
+
 #Start this shit
 WORKDIR /var/www
 COPY ./docker/vars/apache/httpd.conf /opt/apache/conf/httpd.conf
 COPY ./docker/vars/apache/start.sh /var/www/
+COPY --chown=www-data:www-data ./bioserv1/www /var/www/bhof1
+
+RUN mkdir -p /var/www/dnas/00000002 && ln -s /var/www/bhof1 /var/www/dnas/00000002
 
 CMD [ "sh", "-c", "/var/www/start.sh" ]
 

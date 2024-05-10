@@ -6,9 +6,41 @@ services:
     ports:
       - "80:80"
       - "443:443"
-  # bio1server:
-  #   build: 
-  #     context: .
-  #     dockerfile: docker/bio1-server.Dockerfile
-  #     args:
-  #       - EXTERNAL_API=127.0.0.1
+    depends_on:
+      - bio1mysql
+    networks:
+      - bio1
+
+  bio1server:
+    build: 
+      context: .
+      dockerfile: docker/bio1-server.Dockerfile
+    ports:
+      - "8300:8300"
+      - "8690:8690"
+    depends_on:
+      - bio1mysql
+    networks:
+      - bio1
+
+  bio1mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "bioserver"
+      MYSQL_USER: "bioserver"
+      MYSQL_PASSWORD: "xxxxxxxxxxxxxxxx"
+    networks:
+      - bio1
+    volumes:
+      - ./bioserv1/database/bioserver.sql:/docker-entrypoint-initdb.d/bioserver.sql:rw
+
+networks:
+  bio1:
+    driver: bridge
+    name: bio1-network
+
+volumes:
+  db_data:
