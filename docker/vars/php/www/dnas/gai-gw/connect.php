@@ -46,7 +46,6 @@
   $gameID  = substr($packet, 0x2c, 8);
   $qrytype = substr($packet, 0, 4);
   $fname   = bin2hex($gameID)."_".bin2hex($qrytype);
-  
   // step 0 - create the checksums and keys for the answer packet
   $chksum1  = sha1(substr($packet, 0x34, 0x100));
   $chksum2  = sha1(substr($packet, 0x48,  0xec));
