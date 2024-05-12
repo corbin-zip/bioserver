@@ -47,7 +47,13 @@ class GameServerPacketHandler implements Runnable {
         // get configuration
         Configuration conf = new Configuration();
         
-        this.db = new Database(conf.db_user, conf.db_password);
+        this.db = new Database(
+            conf.db_user, 
+            conf.db_password,
+            conf.db_host,
+            conf.db_params,
+            conf.db_database
+        );
         packetidcounter = 0;
        
         while(true) {

@@ -33,21 +33,46 @@ import java.util.logging.Logger;
  * class for managing the database
  */
 public class Database {
-    // TODO: read from ini-file, don't save credentials in class!
-    private final String url = "jdbc:mysql://bio1mysql:3306/bioserver"
-                         +"?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false";
-    private String user = "bioserver";
-    private String password = "xxxxxxxxxxxxxxxx";
+    private String url;
+    private String user;
+    private String password;
+    private String host;
+    private String params;
+    private String database;
     
     private Connection con = null;
     
     // simple constructor to create a reusable connection to the database
-    public Database(String db_user, String db_password) {
+    public Database(
+        String db_user, 
+        String db_password, 
+        String db_host, 
+        String db_params,
+        String db_database
+    ) {
         this.user = db_user;
         this.password = db_password;
+        this.host = db_host;
+        this.params = db_params;
+        this.database = db_database;
+        this.url = String.format(
+            "jdbc:mysql://%s:3306/%s?useUnicode=true&characterEncoding=UTF-8%s",
+            this.host,
+            this.database,
+            this.params
+        );
 
         try {
-            con = (Connection) DriverManager.getConnection(url, user, password);
+            con = (Connection) DriverManager.getConnection(
+                String.format(
+                    "jdbc:mysql://%s:3306/%s?useUnicode=true&characterEncoding=UTF-8%s",
+                    this.host,
+                    this.user,
+                    this.params
+                ), 
+                user, 
+                password
+            );
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }

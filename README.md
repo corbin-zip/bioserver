@@ -7,3 +7,7 @@ To briefly state the goal behind this project, it's simply to preserve [dev ghos
 The initial commit is identical to both projects, but in a single repo instead of separate repos.
 
 `Biohazard Outbreak private server.pdf` offers some guidance, but this will need to be rewritten and replaced.
+UPD: Setup your dnmasq
+`cp bioserv1/.config.properties.example bioserv1/bioserv/config.properties`
+And set server ip
+`cp bioserv1/.config.properties.example bioserv1/bioserv/config.properties`

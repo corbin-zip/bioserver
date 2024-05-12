@@ -36,17 +36,34 @@ import java.util.logging.Logger;
  * class for managing the bio2fog database
  */
 public class Database {
-    private final String url = "jdbc:mysql://bio2mysql:3306/bioserver2"
-                               +"?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false";
-    private String user = "bioserver";
-    private String password = "xxxxxxxxxxxxxxxx";
+    private String url;
+    private String user;
+    private String password;
+    private String host;
+    private String params;
+    private String database;
     
     private Connection con = null;
     
     // simple constructor to create a reusable connection to the database
-    public Database(String db_user, String db_password) {
+    public Database(
+        String db_user, 
+        String db_password,
+        String db_host,
+        String db_params,
+        String db_database
+    ) {
         this.user = db_user;
         this.password = db_password;
+        this.host = db_host;
+        this.params = db_params;
+        this.database = db_database;
+        this.url = String.format(
+            "jdbc:mysql://%s:3306/%s?useUnicode=true&characterEncoding=UTF-8%s",
+            this.host,
+            this.database,
+            this.params
+        );
         
         try {
             con = (Connection) DriverManager.getConnection(url, user, password);

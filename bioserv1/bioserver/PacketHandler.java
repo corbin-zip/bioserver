@@ -92,7 +92,13 @@ class PacketHandler implements Runnable {
         }
 
         // open database for the handler
-        this.db = new Database(conf.db_user, conf.db_password);
+        this.db = new Database(
+            conf.db_user, 
+            conf.db_password,
+            conf.db_host,
+            conf.db_params,
+            conf.db_database
+        );
         this.packetidcounter = 0;
         this.gamenumber = 1;
         

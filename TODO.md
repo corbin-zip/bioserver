@@ -10,6 +10,7 @@
 - [ ] Script out the Java compilation process to compile all Java files into a specific directory
 - [ ] Write autostart scripts etc
   - ie: should be able to write something like `./start_server1.sh` and have the File #1 server start
+- [ ] Update guides
 
 ## Configuration Management
 

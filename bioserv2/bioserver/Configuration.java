@@ -36,6 +36,9 @@ public class Configuration {
     public String gs_ip;
     public String db_user;
     public String db_password;
+    public String db_host;
+    public String db_params;
+    public String db_database;
 
     // constructor
     public Configuration() {
@@ -50,6 +53,9 @@ public class Configuration {
             this.gs_ip       = prop.getProperty("gs_ip");
             this.db_user     = prop.getProperty("db_user");
             this.db_password = prop.getProperty("db_password");
+            this.db_host     = prop.getProperty("db_host");
+            this.db_params   = prop.getProperty("db_params");
+            this.db_database = prop.getProperty("db_database");
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Configuration.class.getName()).log(Level.SEVERE, null, ex);
