@@ -1,0 +1,62 @@
+services:
+  bio2apache:
+    build: 
+      context: .
+      dockerfile: docker/apache.Dockerfile
+      args:
+        - DNAS_SRC=./bioserv2/www
+        - DNAS_DEST=/var/www/dnas/00000010
+        - FPM_HOST=bio2fpm
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - bio2mysql
+    networks:
+      - bio2
+
+  bio2server:
+    build: 
+      context: .
+      dockerfile: docker/server.Dockerfile
+      args:
+        - SERVER_PATH=./bioserv2/bioserver
+        - RUN_FILE_PATH=./bioserv2/run_file2.sh
+    ports:
+      - "8200:8200"
+      - "8590:8590"
+    depends_on:
+      - bio2mysql
+    networks:
+      - bio2
+
+  bio2fpm:
+    build: 
+      context: .
+      dockerfile: docker/fpm.Dockerfile
+      args:
+        - DNAS_SRC=./bioserv2/www
+        - DNAS_DEST=/var/www/dnas/00000010
+    depends_on:
+      - bio2mysql
+      - bio2server
+    networks:
+      - bio2
+
+  bio2mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "bioserver2"
+      MYSQL_USER: "bioserver"
+      MYSQL_PASSWORD: "xxxxxxxxxxxxxxxx"
+    networks:
+      - bio2
+    volumes:
+      - ./bioserv2/database/bioserver.sql:/docker-entrypoint-initdb.d/bioserver.sql:rw
+      - ./dbdata2:/var/lib/mysql
+
+networks:
+  bio2:
+    driver: bridge
+    name: bio2-network

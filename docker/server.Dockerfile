@@ -1,12 +1,15 @@
 FROM openjdk:17.0.2-jdk-slim-bullseye
 
+ARG SERVER_PATH
+ARG RUN_FILE_PATH
+
 RUN apt-get update && apt-get install -y wget
 
 RUN wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j_8.0.32-1debian11_all.deb \
     && dpkg --install mysql-connector-j_8.0.32-1debian11_all.deb
 
-COPY --chown=www-data:www-data ./bioserv1/bioserver /var/www/bioserver
-COPY --chown=www-data:www-data ./bioserv1/run_file1.sh /var/www
+COPY --chown=www-data:www-data $SERVER_PATH /var/www/bioserver
+COPY --chown=www-data:www-data $RUN_FILE_PATH /var/www/run.sh
 
 WORKDIR /var/www
 
@@ -20,7 +23,7 @@ RUN mkdir -p bin/bioserver \
 
 RUN apt-get install -y lsof iputils-ping
 
-CMD [ "sh", "-c", "/var/www/run_file1.sh" ]
+CMD [ "sh", "-c", "/var/www/run.sh" ]
 
 
 

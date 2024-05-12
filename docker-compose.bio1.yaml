@@ -2,7 +2,11 @@ services:
   bio1apache:
     build: 
       context: .
-      dockerfile: docker/bio1-apache.Dockerfile
+      dockerfile: docker/apache.Dockerfile
+      args:
+        - DNAS_SRC=./bioserv1/www
+        - DNAS_DEST=/var/www/dnas/00000002
+        - FPM_HOST=bio1fpm
     ports:
       - "80:80"
       - "443:443"
@@ -14,12 +18,13 @@ services:
   bio1server:
     build: 
       context: .
-      dockerfile: docker/bio1-server.Dockerfile
+      dockerfile: docker/server.Dockerfile
+      args:
+        - SERVER_PATH=./bioserv1/bioserver
+        - RUN_FILE_PATH=./bioserv1/run_file1.sh
     ports:
       - "8300:8300"
-      - "8200:8200"
       - "8690:8690"
-      - "8590:8590"
     depends_on:
       - bio1mysql
     networks:
@@ -28,7 +33,10 @@ services:
   bio1fpm:
     build: 
       context: .
-      dockerfile: docker/bio1-php.Dockerfile
+      dockerfile: docker/fpm.Dockerfile
+      args:
+        - DNAS_SRC=./bioserv1/www
+        - DNAS_DEST=/var/www/dnas/00000002
     depends_on:
       - bio1mysql
       - bio1server

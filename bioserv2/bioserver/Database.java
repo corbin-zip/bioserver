@@ -36,8 +36,8 @@ import java.util.logging.Logger;
  * class for managing the bio2fog database
  */
 public class Database {
-    private final String url = "jdbc:mysql://localhost:3306/bioserver2"
-                               +"?useUnicode=true&characterEncoding=UTF-8";
+    private final String url = "jdbc:mysql://bio2mysql:3306/bioserver2"
+                               +"?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false";
     private String user = "bioserver";
     private String password = "xxxxxxxxxxxxxxxx";
     
